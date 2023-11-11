@@ -17,10 +17,10 @@ class ActorsController < ApplicationController
 
   def create
     a = Actor.new
-    a.name = params["name"]
-    a.dob = params["dob"]
-    a.bio = params["bio"]
-    a.image = params["image"]
+    a.name = params["the_name"]
+    a.dob = params["the_dob"]
+    a.bio = params["the_bio"]
+    a.image = params["the_image"]
 
     a.save
 
@@ -28,9 +28,30 @@ class ActorsController < ApplicationController
   end
 
   def destroy
+    the_id = params["an_id"]
+
+    matching_records = Actor.where({:id => the_id})
+
+    the_actor = matching_records[0]
+
+    the_actor.destroy
     
+    redirect_to("/actors")
   end
 
   def update
+    id = params["the_id"]
+
+    matching_records = Actor.where({:name => id})
+    actor = matching_records[0]
+
+    actor.name = params["the_name"]
+    actor.dob = params["the_dob"]
+    actor.bio = params["the_bio"]
+    actor.image = params["the_image"]
+
+    actor.save
+
+    redirect_to("/actors/#{actor.id}")
   end
 end
