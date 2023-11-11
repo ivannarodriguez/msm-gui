@@ -62,11 +62,11 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("an_id")
+    the_id = params["an_id"]
 
     matching_records = Movie.where({ :id => the_id })
 
-    the_movie = matching_records.at(0)
+    the_movie = matching_records[0]
 
     the_movie.destroy
 
